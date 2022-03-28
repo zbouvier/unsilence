@@ -25,16 +25,6 @@ class Unsilence:
         self.__input_file = Path(input_file)
         self.__temp_dir = Path(temp_dir)
         self.__intervals: Intervals = None
-
-        ffmpeg_status = is_ffmpeg_usable()
-        if ffmpeg_status == "not_detected":
-            raise EnvironmentError("ffmpeg not found!")
-        elif ffmpeg_status == "requirements_unsatisfied":
-            raise EnvironmentError("ffmpeg version not supported, a version >= 4.2.4 is required!")
-        elif ffmpeg_status == "unknown_version":
-            print("Could not detect ffmpeg version, proceed at your own risk! (version >= 4.2.4 required)",
-                  file=sys.stderr)
-
         atexit.register(self.cleanup)
 
     def detect_silence(self, **kwargs):
